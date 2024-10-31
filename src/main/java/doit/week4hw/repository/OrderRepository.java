@@ -2,5 +2,5 @@ package doit.week4hw.repository;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 
-public interface OrderRepository extends JpaRepository<Order, Long> {
+public interface OrderRepository extends JpaRepository<Ordering, Long> {
 }

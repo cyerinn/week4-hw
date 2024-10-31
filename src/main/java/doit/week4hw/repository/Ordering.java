@@ -8,10 +8,10 @@ import lombok.NoArgsConstructor;
 @Entity
 @NoArgsConstructor
 @Getter
-public class Order {
+public class Ordering {
 
     @Id
-    @Column(name = "order_num")
+    @Column(name = "order_id")
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
 
@@ -21,7 +21,7 @@ public class Order {
     private int count;
 
     @Builder
-    public Order(Long item, int count){
+    public Ordering(Long item, int count){
         this.item = item;
         this.count = count;
     }

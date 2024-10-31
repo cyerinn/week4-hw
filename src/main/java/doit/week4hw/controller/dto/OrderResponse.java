@@ -1,6 +1,7 @@
 package doit.week4hw.controller.dto;
 
-import doit.week4hw.repository.Order;
+import com.fasterxml.jackson.annotation.JsonProperty;
+import doit.week4hw.repository.Ordering;
 
 import java.util.List;
 
@@ -9,12 +10,20 @@ public record OrderResponse (
         Long item,
         int count
 ){
-    public static List<OrderResponse> from(List<Order> orders){
+    public static List<OrderResponse> from(List<Ordering> orders){
         return orders.stream()
                 .map(order -> new OrderResponse(
                         order.getId(),
                         order.getItem(),
                         order.getCount()
                 )).toList();
+    }
+
+    public static OrderResponse from(Ordering orders){
+        return new OrderResponse(
+                orders.getId(),
+                orders.getItem(),
+                orders.getCount()
+        );
     }
 }

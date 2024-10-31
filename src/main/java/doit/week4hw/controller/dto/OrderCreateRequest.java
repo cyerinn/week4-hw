@@ -1,6 +1,10 @@
 package doit.week4hw.controller.dto;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
+
 public record OrderCreateRequest (
-    Long item,
-    int count
+        @JsonProperty("productId")
+        Long item,
+        @JsonProperty("quantity")
+        int count
 ){}

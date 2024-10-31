@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Product Details</title>
+</head>
+<body>
+
+<div id="product-details">
+    <!-- 조회된 제품 정보가 여기에 표시될 예정 -->
+</div>
+
+<button id="order-button">주문하기</button>
+
+<script>
+    // 조회된 제품 ID
+    let productId = null;
+
+    // 제품 조회 함수
+    async function fetchProduct(id) {
+        try {
+            const response = await fetch(`/products/${id}`);
+            const product = await response.json();
+            productId = product.id; // 조회된 제품 ID 설정
+
+            document.getElementById("product-details").innerHTML = `
+            <h1>${product.name}</h1>
+            <p>Price: ${product.price}</p>
+        `;
+        } catch (error) {
+            console.error("Failed to fetch product:", error);
+        }
+    }
+
+    // 주문 생성 함수
+    async function createOrder() {
+        if (!productId) {
+            alert("주문할 제품이 선택되지 않았습니다.");
+            return;
+        }
+
+        try {
+            const quantity = prompt("주문 수량을 입력하세요:", 1);
+            if (!quantity) return;
+
+            const orderRequest = {
+                productId: productId,
+                quantity: parseInt(quantity)
+            };
+
+            const response = await fetch('/orders', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify(orderRequest)
+            });
+
+            if (response.ok) {
+                alert("주문이 성공적으로 생성되었습니다.");
+            } else {
+                alert("주문 생성에 실패했습니다.");
+            }
+        } catch (error) {
+            console.error("Failed to create order:", error);
+        }
+    }
+
+    // 이벤트 리스너 설정
+    document.getElementById("order-button").addEventListener("click", createOrder);
+
+    // 예시로 제품 ID 1번을 조회한다고 가정
+    fetchProduct(1);
+
+</script>
+</body>
+</html>
