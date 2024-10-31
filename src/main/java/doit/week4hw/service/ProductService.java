@@ -4,7 +4,6 @@ import doit.week4hw.controller.dto.ProductCreateRequest;
 import doit.week4hw.controller.dto.ProductResponse;
 import doit.week4hw.repository.Product;
 import doit.week4hw.repository.ProductRepository;
-import lombok.NoArgsConstructor;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
@@ -44,5 +43,23 @@ public class ProductService {
         );
     }
 
+    public ProductResponse updateProduct(Long productId, ProductCreateRequest request){
+        Product product = productRepository.findById(productId)
+                .orElseThrow(() -> new IllegalArgumentException("해당 상품이 존재하지 않습니다. id=" + productId));
 
+        product.changeName(request.name());product.changePrice(request.price());
+
+        productRepository.save(product);
+
+        return ProductResponse.from(product);
+    }
+
+    public ProductResponse deleteProduct(Long productId){
+        Product product = productRepository.findById(productId)
+                .orElseThrow(() -> new IllegalArgumentException("해당 상품이 존재하지 않습니다. id=" + productId));
+
+        productRepository.delete(product);
+
+        return ProductResponse.from(product);
+    }
 }

@@ -25,4 +25,13 @@ public class Product {
         this.name = name;
         this.price = price;
     }
+
+    public void changeName(String name){
+        this.name = name;
+    }
+
+    public void changePrice(int price){
+        this.price = price;
+    }
+
 }

@@ -30,4 +30,14 @@ public class ProductController {
     public ProductResponse getOneProduct(@PathVariable Long productId){
         return productService.findOneProduct(productId);
     }
+
+    @PutMapping("/products/{productId}")
+    public ProductResponse updateOneProduct(@PathVariable Long productId, @RequestBody ProductCreateRequest request){
+        return productService.updateProduct(productId, request);
+    }
+
+    @DeleteMapping("/products/{productId}")
+    public ProductResponse deleteOneProduct(@PathVariable Long productId){
+        return productService.deleteProduct(productId);
+    }
 }
